@@ -6,8 +6,9 @@
 body {
   display: grid;
   place-content: center;
-
+  width: 100dvw;
   height: 100dvh;
+  overflow: hidden;
 
   background-color: oklch(0.1 0.1 0.8turn);
   color: white;
@@ -21,9 +22,8 @@ body {
   position: relative;
   display: grid;
   margin: auto;
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
+  overflow-y:auto;
+  -webkit-overflow-scrolling: touch;
 
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -33,6 +33,8 @@ body {
   background-color: gray;
 }
 [is="game-root"] [is="game-cube"] {
+  pointer-events: none;
+  user-select: none;
   --x: 0;
   --y: 0;
   --val: 0;

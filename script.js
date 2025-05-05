@@ -7,8 +7,11 @@ Cube.define();
 Game.define();
 /** @type {Game} */
 const $game = document.getElementById("game");
+const $test = document.getElementById("test");
 
-window.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
+gestureTracker.zones.push($game)
+
+document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
   if ($game.firstElementChild === null) return;
   const { direction, orientation } = e.detail;
   if (orientation === gestureTracker.HORIZONTAL) {
@@ -32,18 +35,20 @@ window.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
             }
             max--;
           }
-          if($prev === undefined)$game.moveCube($cube, $cube.y, 0);
-          else if(!$prev.merged){
-            $game.moveCube($cube, $cube.y, $prev.x+1);
-          }else if(!$cube.used){
-            $game.moveCube($cube, $cube.y, $prev.x+1);
+          if ($prev === undefined) $game.moveCube($cube, $cube.y, 0);
+          else if (!$prev.merged) {
+            $game.moveCube($cube, $cube.y, $prev.x + 1);
+          } else if (!$cube.used) {
+            $game.moveCube($cube, $cube.y, $prev.x + 1);
           }
         }
       }
     }
   }
-  [...$game.children].forEach(/**@type {Cube} */ $cube=>$cube.merged = false)
-  return
+  [...$game.children].forEach(
+    /**@type {Cube} */ ($cube) => ($cube.merged = false)
+  );
+  return;
   [...$game.children].forEach(
     /**@type {Cube} */ ($c) => {
       if (orientation === gestureTracker.HORIZONTAL) {
@@ -56,7 +61,7 @@ window.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
 });
 
 $game.addEventListener("animationend", (e) => {
-  if(e.animationName === "mixin")e.target.remove()
+  if (e.animationName === "mixin") e.target.remove();
 });
 
 $game.init();
@@ -64,3 +69,7 @@ $game.addCube(4, 0);
 $game.addCube(2, 0);
 $game.addCube(3, 0);
 $game.addCube(1, 0);
+
+document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
+  $test.textContent = (e.detail.orientation ?? null) + ", " + (e.detail.direction ?? "null");
+});
