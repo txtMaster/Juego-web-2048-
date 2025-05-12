@@ -1,6 +1,6 @@
 import Engine from "./Engine.js";
 
-export class Cube extends Engine.mixin("cube") {
+export default class Cube extends Engine.mixin("cube") {
     x = -1;
     y = -1;
     value = 0;
