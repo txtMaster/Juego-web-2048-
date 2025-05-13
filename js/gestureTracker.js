@@ -9,7 +9,7 @@ const gestureTracker = {
   UP: "up",
   HORIZONTAL: "horizontal",
   VERTICAL: "vertical",
-  aspectRatio: 2,
+  aspectRatio: 1.2,
   min: 20,
   mouse: [
     [0, 0],
@@ -32,13 +32,15 @@ const gestureTracker = {
 
     if (distanceY > min) directionY = this.UP;
     else if (distanceY < -min) directionY = this.DOWN;
+    distanceX = Math.abs(distanceX)
+    distanceY = Math.abs(distanceY)
     if (directionX && directionY) {
-      if (distanceX * this.aspectRatio > distanceY) {
-        this.direction = directionX;
-        this.orientation = this.HORIZONTAL;
-      } else if (distanceY * this.aspectRatio > distanceX) {
+      if (distanceX * this.aspectRatio < distanceY) {
         this.direction = directionY;
         this.orientation = this.VERTICAL;
+      } else if (distanceY * this.aspectRatio < distanceX) {
+        this.direction = directionX;
+        this.orientation = this.HORIZONTAL;
       } else {
         this.orientation = this.direction = null;
       }

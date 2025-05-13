@@ -13,28 +13,16 @@ const $game = document.getElementById("game");
 const $scene = $game.querySelector("[is='game-scene']");
 const $test = document.getElementById("test");
 
-
 gestureTracker.zones.push($scene);
 document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
+  if (!$game.running) return;
   if ($scene.firstElementChild === null) return;
   const { direction, orientation } = e.detail;
-  const [beoreCube, nextCube] = {
-    [gestureTracker.LEFT]: [
-      $scene.getRight,
-      $scene.getLeft,
-    ],
-    [gestureTracker.RIGHT]: [
-      $scene.getLeft,
-      $scene.getRight,
-    ],
-    [gestureTracker.UP]: [
-      $scene.getDown,
-      $scene.getUp,
-    ],
-    [gestureTracker.DOWN]: [
-      $scene.getUp,
-      $scene.getDown,
-    ],
+  const [beforeCube, nextCube] = {
+    [gestureTracker.LEFT]: [$scene.getRight, $scene.getLeft],
+    [gestureTracker.RIGHT]: [$scene.getLeft, $scene.getRight],
+    [gestureTracker.UP]: [$scene.getDown, $scene.getUp],
+    [gestureTracker.DOWN]: [$scene.getUp, $scene.getDown],
   }[direction];
   const getFirstPosition = {
     [gestureTracker.RIGHT]: (cube, r, c) => [cube.y, c.length - 1],
@@ -42,7 +30,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
     [gestureTracker.DOWN]: (cube, r, c) => [r.length - 1, cube.x],
     [gestureTracker.UP]: (cube, r, c) => [0, cube.x],
   }[direction];
-
+  let hasMovedCube = false;
   for (let y = 0; y <= $scene.size.y; y++) {
     /**@type {(Cube|null)[]}*/ const row =
       $scene.map[direction === gestureTracker.DOWN ? $scene.size.y - y : y];
@@ -50,7 +38,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
       const $cube =
         row[direction === gestureTracker.RIGHT ? $scene.size.x - x : x];
       if ($cube === Scene.EMPTY) continue;
-      let $next;
+      let $next = undefined;
       let nextX = $cube.x;
       let nextY = $cube.y;
       let max = $scene.map.length + row.length;
@@ -58,28 +46,50 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
         if ($next === undefined) break;
         if ($next !== Scene.EMPTY) {
           if ($next.value === $cube.value) {
-            $scene.mixCubes($next, $cube);
+            if ($game.mixCubes($next, $cube)) hasMovedCube = true;
           }
           break;
         }
         max--;
       }
-      document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {});
       if ($next === undefined) {
-        $scene.moveCube($cube, ...getFirstPosition($cube, $scene.map, row));
-      } else if (!$next.merged) {
-        $scene.moveCube($cube, ...beoreCube($next.y, $next.x).slice(-2));
-      } else if (!$cube.used) {
-        $scene.moveCube($cube, ...beoreCube($next.y, $next.x).slice(-2));
+        const [nextY, nextX] = getFirstPosition($cube, $scene.map, row);
+        if ($scene.moveCube($cube, nextY, nextX)) hasMovedCube = true;
+      } else if (!$next.merged || !$cube.used) {
+        if ($scene.moveCube($cube, ...beforeCube($next.y, $next.x).slice(-2)))
+          hasMovedCube = true;
       }
     }
   }
   [...$scene.children].forEach(
     /**@type {Cube} */ ($cube) => ($cube.merged = false)
   );
+  if (!hasMovedCube) return;
   //add new Cube
-
   const newCube = $scene.addRandomCube();
+  let hasMoves = false;
+  for (let y = 0; y < $scene.map.length; y++) {
+    const row = $scene.map[y];
+    for (let x = 0; x < row.length; x++) {
+      const cube = row[x];
+      const adjacentsCubes = [
+        $scene.getUp(cube.y, cube.x)[0],
+        $scene.getDown(cube.y, cube.x)[0],
+        $scene.getLeft(cube.y, cube.x)[0],
+        $scene.getRight(cube.y, cube.x)[0],
+      ];
+      if (
+        adjacentsCubes.find((c) => c === Scene.EMPTY || c?.value === cube.value)
+      ) {
+        hasMoves = true;
+        break;
+      }
+    }
+    if (hasMoves) break;
+  }
+  if (!hasMoves) {
+    $game.finish();
+  }
 
   return;
   [...$scene.children].forEach(
@@ -97,9 +107,8 @@ $scene.addEventListener("animationend", (e) => {
   if (e.animationName === "mixin") e.target.remove();
 });
 
-$game.init()
-console.log({...$scene});
+$game.init();
 
-$game.querySelector("button").onclick = function(){
-  $game.init()
-}
+$game.querySelector("button").onclick = function () {
+  $game.init();
+};

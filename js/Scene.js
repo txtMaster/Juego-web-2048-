@@ -43,33 +43,24 @@ export default class Scene extends Engine.mixin("scene") {
     this.append($cube);
     return $cube;
   }
-  /**@param {Cube} $cube */
+  /**
+   * @param {Cube} $cube
+   * @returns {Boolean}
+   */
   moveCube($cube, y, x) {
+    if ($cube.y === y && $cube.x === x) return false;
     if ($cube.x !== -1 && $cube.y !== -1) {
       this.map[$cube.y][$cube.x] = Scene.EMPTY;
     }
     this.map[y][x] = $cube;
     $cube.setY(y);
     $cube.setX(x);
+    return true;
   }
   /**@param {Cube} $cube*/
   removeCube($cube) {
     this.map[$cube.y][$cube.x] = Scene.EMPTY;
     $cube.mixin();
-  }
-  /**
-   * @param {Cube}$mixed
-   * @param {Cube}$cube
-   */
-  mixCubes($mixed, $cube) {
-    if ($mixed.merged) return;
-    $mixed.addValue($cube.value);
-    $cube.setColorValue($mixed.value);
-    this.map[$cube.y][$cube.x] = Scene.EMPTY;
-    $cube.setY($mixed.y);
-    $cube.setX($mixed.x);
-    $cube.mixin();
-    $mixed.merged = true;
   }
 
   addRandomCube() {

@@ -1,4 +1,4 @@
-@property --main-color{
+@property --main-color {
   syntax: "<color>";
   inherits: false;
   initial-value: white;
@@ -20,6 +20,17 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
 }
+[is="game-root"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1lh;
+  [is="score"] {
+    &::before {
+      content: "score: ";
+    }
+  }
+}
 [is="game-scene"] {
   --fr-x: 10;
   --fr-y: 10;
@@ -36,15 +47,14 @@ body {
   grid-template-rows: repeat(var(--fr-y), 1fr);
   grid-template-columns: repeat(var(--fr-x), 1fr);
   aspect-ratio: 1 / 1;
-  width: 70vmin;
+  width: 50vmin;
 
   background: oklch(from black l c h / 0.4);
   outline: 0.2em oklch(from black l c h / 0.3) dotted;
   outline-offset: 0.25rem;
 
-  box-shadow: 
-  oklch(from white l c h / 0.1) -2px -2px 10px 3px,
-  oklch(from black l c h / 0.2) 2px 2px 10px 3px;
+  box-shadow: oklch(from white l c h / 0.1) -2px -2px 10px 3px,
+    oklch(from black l c h / 0.2) 2px 2px 10px 3px;
 }
 [is="game-scene"] [is="game-cube"] {
   pointer-events: none;
@@ -85,7 +95,6 @@ body {
   &[mixin] {
     z-index: 0;
     animation-name: scalein, mixin;
-    
   }
 }
 
