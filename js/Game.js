@@ -2,27 +2,44 @@ import Cube from "./Cube.js";
 import Engine from "./Engine.js";
 import Scene from "./Scene.js";
 export default class Game extends Engine.mixin("root") {
+  static EVENT = {
+    CHANGE_SCORE: "changescore",
+  };
   score = 0;
   /**@type {Scene}*/ scene;
+  /**@type {HTMLElement}*/ message;
   constructor() {
     super();
   }
   running = false;
+  audio = {
+    /**@type {HTMLAudioElement|null} */ onMixCubes: null,
+  };
   init() {
     this.running = true;
     this.scene ??= this.querySelector(`[is='${Scene.type}']`);
+    this.message ??= this.querySelector("[is='message']");
+
+    if (!this.audio.onMixCubes) {
+      this.audio.onMixCubes ??= this.querySelector("[is='game-audio-onmix'");
+      this.audio.onMixCubes.volume = 0.5;
+      this.audio.onMixCubes.onplay = function (e) {
+        setTimeout(() => {
+          this.pause();
+          this.currentTime = 0;
+        }, 370);
+      };
+    }
     if (!(this.scene instanceof Scene)) return;
     this.setScore(0);
     this.scene.init();
     this.scene.addRandomCube();
-    const $message = this.querySelector("[is='message']");
-    if ($message) $message.textContent = "RUNNING";
+    if (this.message) this.message.textContent = "RUNNING";
     const $score = this.querySelector("[is='score']");
     if ($score) $score.textContent = this.score;
   }
   finish() {
-    const $message = this.querySelector("[is='message']");
-    if ($message) $message.textContent = "GAME OVER";
+    this.message.textContent = "GAME OVER";
     this.running = false;
   }
   addScore(val = 0) {
@@ -33,6 +50,11 @@ export default class Game extends Engine.mixin("root") {
   }
   setScore(val = 0) {
     this.style.setProperty("--score", (this.score = val));
+    document.dispatchEvent(new CustomEvent(Game.EVENT.CHANGE_SCORE, {
+      detail: {
+        score: this.score,
+      },
+    }))
   }
 
   /**

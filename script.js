@@ -12,6 +12,12 @@ const $game = document.getElementById("game");
 /** @type {Scene} */
 const $scene = $game.querySelector("[is='game-scene']");
 const $test = document.getElementById("test");
+const soundButton = document.getElementById("sound");
+/**@type {HTMLAudioElement} */ const backgroundAudio =
+  document.getElementById("background-audio");
+
+/**@type {HTMLAudioElement} */ const onMixAudio =
+  document.getElementById("background-audio");
 
 gestureTracker.zones.push($scene);
 document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
@@ -31,6 +37,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
     [gestureTracker.UP]: (cube, r, c) => [0, cube.x],
   }[direction];
   let hasMovedCube = false;
+  let haveMixedCubes = false;
   for (let y = 0; y <= $scene.size.y; y++) {
     /**@type {(Cube|null)[]}*/ const row =
       $scene.map[direction === gestureTracker.DOWN ? $scene.size.y - y : y];
@@ -46,7 +53,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
         if ($next === undefined) break;
         if ($next !== Scene.EMPTY) {
           if ($next.value === $cube.value) {
-            if ($game.mixCubes($next, $cube)) hasMovedCube = true;
+            if ($game.mixCubes($next, $cube)) haveMixedCubes = hasMovedCube = true;
           }
           break;
         }
@@ -87,6 +94,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
     }
     if (hasMoves) break;
   }
+  if(haveMixedCubes) $game.audio.onMixCubes?.play()
   if (!hasMoves) {
     $game.finish();
   }
@@ -103,12 +111,23 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
   );
 });
 
-$scene.addEventListener("animationend", (e) => {
-  if (e.animationName === "mixin") e.target.remove();
-});
 
 $game.init();
 
-$game.querySelector("button").onclick = function () {
+$game.querySelector("button").onclick = () => {
   $game.init();
 };
+
+soundButton.onclick = function () {
+  backgroundAudio.volume = 0.3;
+  backgroundAudio.loop = true;
+  if (backgroundAudio.paused) {
+    backgroundAudio.play();
+  } else {
+    backgroundAudio.pause();
+  }
+};
+
+document.addEventListener(Game.EVENT.CHANGE_SCORE,e=>{
+  document.body.style.setProperty("--score",e.detail.score)
+})

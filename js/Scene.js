@@ -11,6 +11,9 @@ export default class Scene extends Engine.mixin("scene") {
   map = [[]];
   constructor() {
     super();
+    this.onanimationend = function (e) {
+      if (e.animationName === "mixin") e.target.remove();
+    };
   }
   static observedAttributes = ["data-x", "data-y"];
   attributeChangedCallback(name, prev, next) {

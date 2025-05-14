@@ -9,12 +9,25 @@
     <title>Document</title>
   </head>
   <body>
-    <div is="game-root" id="game">
-      <div is="game-scene" data-x="3" data-y="3"></div>
-      <div is="message">JUGANDO</div>
-      <data value="0" type="number" is="score"></data>
-      <button>NEW GAME</button>
-    </div>
-    <div id="test" style="color: white"></div>
+    <header>
+      <input type="checkbox" name="" id="sound" class="sound" />
+    </header>
+    <main>
+      <div is="game-root" id="game">
+        <audio is="game-audio-onmix" src="/media/sound/on-mix.mp3" preload="none"></audio>
+        <div is="game-scene" data-x="3" data-y="3" class="after-glow-effect">
+        </div>
+        <div is="message"></div>
+        <data value="0" type="number" is="score"></data>
+        <button>NEW GAME</button>
+      </div>
+      <div id="test" style="color: white"></div>
+      <audio
+        id="background-audio"
+        src="/media/sound/Touch-and-Go.mp3"
+        preload="none"
+      ></audio>
+    </main>
+    <footer></footer>
   </body>
 </html>
