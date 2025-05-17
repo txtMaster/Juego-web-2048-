@@ -17,11 +17,4 @@
   grid-template-columns: repeat(var(--fr-x), 1fr);
   aspect-ratio: 1 / 1;
   width:50vmin;
-
-  outline-offset: 0.25rem;  
-
-
-  @media screen and (width < 200px) {
-    width:80vmin;
-  }
 }

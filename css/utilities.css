@@ -21,3 +21,78 @@
   transform: translate(-50%, -50%);
   z-index: 1;
 }
+
+.bg-grid {
+  --bg-grid-x: 100%;
+  --bg-grid-y: 100%;
+  --bg-grid-padding: 5%;
+  --bg-grid-color: black;
+  --bg-grid-space-color: white;
+  --bg-grid-at-min: calc(var(--bg-grid-padding) * 4);
+  --bg-grid-at-max: calc(100% - (var(--bg-grid-padding) * 4));
+  --bg-grid-radial-size: 13%;
+  background-color: var(--bg-grid-space-color);
+  background: 
+  /*top left*/
+    radial-gradient(
+      at var(--bg-grid-at-min) var(--bg-grid-at-min),
+      var(--bg-grid-color) var(--bg-grid-radial-size),
+      transparent var(--bg-grid-radial-size)
+    ),
+    conic-gradient(
+      from 0deg at var(--bg-grid-at-min) var(--bg-grid-at-min),
+      transparent 75%,
+      var(--bg-grid-space-color) 75% 100%
+    ),
+    /*top right*/
+    radial-gradient(
+      at var(--bg-grid-at-max) var(--bg-grid-at-min),
+      var(--bg-grid-color) var(--bg-grid-radial-size),
+      transparent var(--bg-grid-radial-size)
+    ),
+    conic-gradient(
+      from 90deg at var(--bg-grid-at-max) var(--bg-grid-at-min),
+      transparent 75%,
+      var(--bg-grid-space-color) 75% 100%
+    ),
+
+    /*bottom right*/
+    radial-gradient(
+      at var(--bg-grid-at-max) var(--bg-grid-at-max),
+      var(--bg-grid-color) var(--bg-grid-radial-size),
+      transparent var(--bg-grid-radial-size)
+    ),
+    conic-gradient(
+      from 180deg at var(--bg-grid-at-max) var(--bg-grid-at-max),
+      transparent 75%,
+      var(--bg-grid-space-color) 75% 100%
+    ),
+
+    /*bottom left*/
+    radial-gradient(
+      at var(--bg-grid-at-min) var(--bg-grid-at-max),
+      var(--bg-grid-color) var(--bg-grid-radial-size),
+      transparent var(--bg-grid-radial-size)
+    ),
+    conic-gradient(
+      from 270deg at var(--bg-grid-at-min) var(--bg-grid-at-max),
+      transparent 75%,
+      var(--bg-grid-space-color) 75% 100%
+    ),
+
+    linear-gradient(
+      to right,
+      var(--bg-grid-space-color) var(--bg-grid-padding),
+      transparent var(--bg-grid-padding),
+      transparent calc(100% - var(--bg-grid-padding)),
+      var(--bg-grid-space-color) calc(100% - var(--bg-grid-padding))
+    ),
+    linear-gradient(
+      to bottom,
+      var(--bg-grid-space-color) var(--bg-grid-padding),
+      var(--bg-grid-color) var(--bg-grid-padding),
+      var(--bg-grid-color) 95%,
+      var(--bg-grid-space-color) 95%
+    );
+  background-size: var(--bg-grid-x) var(--bg-grid-y);
+}

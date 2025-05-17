@@ -1,6 +1,8 @@
-@layer propertys, base, components, utilities, theme;
+@layer reset, propertys, base, components, utilities, theme;
 
+@import "/css//reset.css" layer(reset);
 @import "/css/propertys.css" layer(propertys);
+@import "/css/utilities.css" layer(utilities);
 @import "/css/Game/GameRoot.css" layer(components);
 @import "/css/Game/GameScene.css" layer(components);
 @import "/css/Game/GameCube.css" layer(components);
@@ -10,6 +12,10 @@
   margin: 0;
   box-sizing: border-box;
 }
+html{
+  font-size: min(10vmin, 5dvw, 4dvh);
+}
+
 body {
   --score: 0;
   --base-hue: 0;
@@ -27,28 +33,46 @@ body {
   /*animation: base-hue-road 20s infinite forwards;*/
 }
 
+[is="game-root"]{
+  margin: 0 auto;
+  width: 95%;
+  gap: 4vmin;
+  color: gray;
+  button{
+    padding: .2em;
+    border-radius: 1em;
+    width: 100%;
+    background-color: #51999A;
+    color: white;
+    font-weight: bolder;
+    font-size: 2rem;
+  }
+  [is="score"]{
+    aspect-ratio: 2/1;
+    text-align: center;
+    padding: .2em;
+    border-radius: .5em;
+    background-color: #F9805F;
+    color: white;
+    font-size: 1.5rem;
+  }
+  [is="message"]{
+    font-size: 1rem;
+  }
+}
+
 [is="game-scene"] {
   --bg-color: #d5c9b8;
-  background-color: var(--bg-color);
-  background-image: linear-gradient(
-      to right,
-      var(--bg-color) 5%,
-      transparent 05%,
-      transparent 95%,
-      var(--bg-color) 95%
-    ),
-    linear-gradient(
-      to bottom,
-      var(--bg-color) 5%,
-      #e1d5c5 05%,
-      #e0d5c6 95%,
-      var(--bg-color) 95%
-    );
-  background-size: calc(var(--perc-y)) calc(var(--perc-x));
+  --bg-grid-color: #E1D5C5;
+  --bg-grid-space-color: var(--bg-color);
+  --bg-grid-x: var(--perc-x);
+  --bg-grid-y: var(--perc-y);
+  width: 100%;
+  color: white;
 
   background-repeat: repeat;
   border-radius: 0.5em;
-  box-shadow: 0 0 0 0.5em #d5c9b8;
+  outline: var(--bg-color) solid .3em;
 }
 [is="game-cube"] {
   border-radius: 0.5em;
@@ -103,68 +127,29 @@ input[type="range"] {
   z-index: 2;
 }
 
-/********** Range Input Styles **********/
-/*Range Reset*/
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
+
+
+
+/*landscape*/
+@media screen and (aspect-ratio > 2 / 3) {
+  [is="game-root"]{
+    button{
+      width: 50vmin;
+      font-size: 1rem; 
+    }
+  }
+  [is="game-scene"]{
+    width: 50vmin;
+  }
 }
-
-/* Removes default focus */
-input[type="range"]:focus {
-  outline: none;
-}
-
-/***** Chrome, Safari, Opera and Edge Chromium styles *****/
-/* slider track */
-input[type="range"]::-webkit-slider-runnable-track {
-  background-color: lch(30.59 0.02 277.8);
-  border-radius: 0.5rem;
-  height: 0.5rem;
-}
-
-/* slider thumb */
-input[type="range"]::-webkit-slider-thumb {
-  position: relative;
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  top: -50%;
-
-  border-radius: 2em;
-  background-color: white;
-  width: 1rem;
-  aspect-ratio: 1 / 1;
-}
-
-input[type="range"]:focus::-webkit-slider-thumb {
-  border: 1px solid lch(100 0.03 277.8 / 0.2);
-  outline: 3px solid lch(100 0.03 277.8 / 0.2);
-  outline-offset: 0.125rem;
-}
-
-/******** Firefox styles ********/
-/* slider track */
-input[type="range"]::-moz-range-track {
-  background-color: #053a5f;
-  border-radius: 0.5rem;
-  height: 0.5rem;
-}
-
-/* slider thumb */
-input[type="range"]::-moz-range-thumb {
-  border: none; /*Removes extra border that FF applies*/
-  border-radius: 0; /*Removes default border-radius that FF applies*/
-
-  /*custom styles*/
-  background-color: #5cd5eb;
-  height: 2rem;
-  width: 1rem;
-}
-
-input[type="range"]:focus::-moz-range-thumb {
-  border: 1px solid #053a5f;
-  outline: 3px solid #053a5f;
-  outline-offset: 0.125rem;
+@media screen and (aspect-ratio > 3 / 2) {
+  [is="game-root"]{
+    button{
+      width: 40vmin;
+      font-size: 1rem; 
+    }
+  }
+  [is="game-scene"]{
+    width: 40vmin;
+  }
 }

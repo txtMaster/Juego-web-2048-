@@ -8,6 +8,9 @@
   inherits: true;
   initial-value: 0;
 }
+:root{
+  --time-function-rebote: cubic-bezier(0.250, 0.250, 0.525, 1.380);
+}
 
 @keyframes mask-onda-effect {
   0%,

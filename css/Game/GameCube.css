@@ -33,8 +33,12 @@
 
   font-family: monospace;
 
-  transition-property: left, top, background, --main-color;
+  transition-property: left, top, opacity;
   transition-duration: var(--time);
+  transition-timing-function:
+  var(--time-function-rebote),
+  var(--time-function-rebote),
+  linear;
   animation-duration: var(--time);
   animation-fill-mode: forwards;
   animation-name: scalein;
