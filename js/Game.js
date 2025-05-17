@@ -11,25 +11,24 @@ export default class Game extends Engine.mixin("root") {
   constructor() {
     super();
   }
+  audioContext = new AudioContext();
   running = false;
   audio = {
-    /**@type {HTMLAudioElement|null} */ onMixCubes: null,
+    /**@type {AudioBuffer|null} */ onMixCubes: null,
   };
-  init() {
+  async init() {
     this.running = true;
     this.scene ??= this.querySelector(`[is='${Scene.type}']`);
     this.message ??= this.querySelector("[is='message']");
 
     if (!this.audio.onMixCubes) {
-      this.audio.onMixCubes ??= this.querySelector("[is='game-audio-onmix'");
-      this.audio.onMixCubes.volume = 0.5;
-      this.audio.onMixCubes.onplay = function (e) {
-        setTimeout(() => {
-          this.pause();
-          this.currentTime = 0;
-        }, 370);
-      };
+      const response = await fetch("/media/sound/on-mix.mp3");
+      const arrayBuffer = await response.arrayBuffer();
+      this.audio.onMixCubes = await this.audioContext.decodeAudioData(
+        arrayBuffer
+      );
     }
+    this.audio.onMixCubes.volume = 0.6;
     if (!(this.scene instanceof Scene)) return;
     this.setScore(0);
     this.scene.init();
@@ -42,6 +41,14 @@ export default class Game extends Engine.mixin("root") {
     this.message.textContent = "GAME OVER";
     this.running = false;
   }
+  playSound() {
+    if (this.audio.onMixCubes) {
+      const source = this.audioContext.createBufferSource();
+      source.buffer = this.audio.onMixCubes;
+      source.connect(this.audioContext.destination);
+      source.start();
+    }
+  }
   addScore(val = 0) {
     if (val === 0) return;
     this.setScore(this.score + val);
@@ -50,11 +57,13 @@ export default class Game extends Engine.mixin("root") {
   }
   setScore(val = 0) {
     this.style.setProperty("--score", (this.score = val));
-    document.dispatchEvent(new CustomEvent(Game.EVENT.CHANGE_SCORE, {
-      detail: {
-        score: this.score,
-      },
-    }))
+    document.dispatchEvent(
+      new CustomEvent(Game.EVENT.CHANGE_SCORE, {
+        detail: {
+          score: this.score,
+        },
+      })
+    );
   }
 
   /**

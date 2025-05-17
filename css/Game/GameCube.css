@@ -1,0 +1,46 @@
+[is="game-cube"] {
+  
+  pointer-events: none;
+  user-select: none;
+  --x: 0;
+  --y: 0;
+  --val: 0;
+  --time: 0.2s;
+
+  scale: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  left: calc(var(--x) * var(--perc-x));
+  top: calc(var(--y) * var(--perc-y));
+  width: var(--perc-x);
+  height: var(--perc-y);
+
+
+  --main-color: oklch(
+    calc(1 - (1 * ((var(--val) - 1) / var(--val))) * 0.5) 0.1
+      calc(var(--val) * 0.03turn)
+  );
+  
+  background-color: var(--main-color);
+  /*box-shadow: 0 0 10px 0 var(--main-color);*/
+
+  font-size: .9rem;
+  font-size: 10cqmin;
+  
+
+  font-family: monospace;
+
+  transition-property: left, top, background, --main-color;
+  transition-duration: var(--time);
+  animation-duration: var(--time);
+  animation-fill-mode: forwards;
+  animation-name: scalein;
+  z-index: 1;
+  &[mixin] {
+    z-index: 0;
+    animation-name: scalein, mixin;
+  }
+}

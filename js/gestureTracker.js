@@ -1,5 +1,6 @@
 const gestureTracker = {
   zones: [],
+  excludeZones: [],
   EVENT: {
     ORTOGONAL: "ortogonalmotion",
   },
@@ -68,9 +69,11 @@ const gestureTracker = {
   direction: null,
 };
 document.addEventListener("mousedown", (e) => {
+  if(gestureTracker.excludeZones.includes(e.target)) return
   gestureTracker.mouse[0] = [e.clientX, e.clientY];
 });
 document.addEventListener("mouseup", (e) => {
+  if(gestureTracker.excludeZones.includes(e.target)) return
   if (
     e.clientX < 0 ||
     e.clientX > window.innerWidth ||
@@ -83,6 +86,7 @@ document.addEventListener("mouseup", (e) => {
 });
 
 document.addEventListener("touchstart", (e) => {
+  if(gestureTracker.excludeZones.includes(e.target)) return
   if (e.touches.length > 1 || e.changedTouches.length > 1) return;
   const t = e.touches[0];
   gestureTracker.touch[0] = [t.clientX, t.clientY];
@@ -95,6 +99,7 @@ document.addEventListener(
   { passive: false }
 );
 document.addEventListener("touchend", (e) => {
+  if(gestureTracker.excludeZones.includes(e.target)) return
   if (e.touches.length > 1 || e.changedTouches.length > 1) return;
   const t = e.changedTouches[0];
   gestureTracker.touch[1] = [t.clientX, t.clientY];
@@ -102,6 +107,7 @@ document.addEventListener("touchend", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
+  if(gestureTracker.excludeZones.includes(e.target)) return
   const [orientation, direction] = {
     ArrowDown: [gestureTracker.VERTICAL, gestureTracker.DOWN],
     ArrowUp: [gestureTracker.VERTICAL, gestureTracker.UP],

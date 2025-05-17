@@ -10,13 +10,19 @@
   </head>
   <body>
     <header>
-      <input type="checkbox" name="" id="sound" class="sound" />
+      <section id="audio-controls">
+        <input type="checkbox" name="" id="sound" class="sound" />
+        <input type="range" name="" id="audio-volumen" value="50%">
+      </section>
     </header>
     <main>
       <div is="game-root" id="game">
-        <audio is="game-audio-onmix" src="/media/sound/on-mix.mp3" preload="none"></audio>
-        <div is="game-scene" data-x="3" data-y="3" class="after-glow-effect">
-        </div>
+        <div
+          is="game-scene"
+          data-x="4"
+          data-y="4"
+          class="after-glow-effect"
+        ></div>
         <div is="message"></div>
         <data value="0" type="number" is="score"></data>
         <button>NEW GAME</button>

@@ -1,0 +1,23 @@
+.after-glow-effect::after {
+  pointer-events: none;
+  user-select: none;
+  content: " ";
+  position: absolute;
+  width: 198%;
+  left: 50%;
+  top: 50%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  margin: 0;
+  display: block;
+  background: oklch(1 0 0 / 0.05);
+  mask-image: radial-gradient(black 40%, transparent 60%),
+    linear-gradient(black, black);
+  mask-repeat: no-repeat;
+  mask-size: cover, 50% 50%;
+  mask-position: center;
+  mask-composite: exclude;
+  backdrop-filter: blur(10px) brightness(1.2) contrast(1.3);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}

@@ -1,0 +1,61 @@
+@property --main-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: white;
+}
+@property --base-hue {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes mask-onda-effect {
+  0%,
+  100% {
+    mask-position: center, center 0%;
+  }
+  50% {
+    mask-position: center, center 25%;
+  }
+}
+
+@keyframes base-hue-road {
+  0% {
+    --base-hue: 0;
+  }
+  100% {
+    --base-hue: 1;
+  }
+}
+
+@keyframes scalein {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: .95;
+  }
+}
+@keyframes mixin {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
+@keyframes pointed {
+  0% {
+    scale: 1;
+  }
+  10% {
+    scale: 0.8;
+  }
+  70% {
+    scale: 0.9;
+  }
+  100% {
+    scale: 1;
+  }
+}

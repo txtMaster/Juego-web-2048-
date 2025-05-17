@@ -16,10 +16,14 @@ const soundButton = document.getElementById("sound");
 /**@type {HTMLAudioElement} */ const backgroundAudio =
   document.getElementById("background-audio");
 
-/**@type {HTMLAudioElement} */ const onMixAudio =
-  document.getElementById("background-audio");
+const volumenSlide = document.getElementById("audio-volumen")
+volumenSlide.oninput = function(e){
+  backgroundAudio.volume = volumenSlide.value / 100
+}
 
 gestureTracker.zones.push($scene);
+console.log(document.querySelector("section#audio-controls"))
+gestureTracker.excludeZones.push(...document.querySelectorAll("section#audio-controls input"))
 document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
   if (!$game.running) return;
   if ($scene.firstElementChild === null) return;
@@ -94,7 +98,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
     }
     if (hasMoves) break;
   }
-  if(haveMixedCubes) $game.audio.onMixCubes?.play()
+  if(haveMixedCubes) $game.playSound()
   if (!hasMoves) {
     $game.finish();
   }
@@ -112,7 +116,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
 });
 
 
-$game.init();
+await $game.init();
 
 $game.querySelector("button").onclick = () => {
   $game.init();

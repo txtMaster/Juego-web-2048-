@@ -1,0 +1,15 @@
+[is="game-root"] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1lh;
+  [is="score"] {
+    &::before {
+      content: "score: ";
+    }
+  }
+  [is="message"]{
+    z-index: 1;
+  }
+}

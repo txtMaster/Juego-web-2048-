@@ -1,0 +1,27 @@
+[is="game-scene"] {
+  --fr-x: 10;
+  --fr-y: 10;
+
+  --perc-x: 10%;
+  --perc-y: 10%;
+
+  position: relative;
+  display: grid;
+  place-content: center;
+  margin: auto;
+  scrollbar-width: none;
+  user-select: none;
+  container-type: inline-size;
+
+  grid-template-rows: repeat(var(--fr-y), 1fr);
+  grid-template-columns: repeat(var(--fr-x), 1fr);
+  aspect-ratio: 1 / 1;
+  width:50vmin;
+
+  outline-offset: 0.25rem;  
+
+
+  @media screen and (width < 200px) {
+    width:80vmin;
+  }
+}
