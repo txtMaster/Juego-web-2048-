@@ -32,6 +32,7 @@ export default class Game extends Engine.mixin("root") {
       this.audio.onMixCubes = await this.audioContext.decodeAudioData(
         arrayBuffer
       );
+      console.log("audio conectados")
     }
     this.audio.onMixCubes.volume = 1;
     if (!(this.scene instanceof Scene)) return;
@@ -69,6 +70,7 @@ export default class Game extends Engine.mixin("root") {
   setScore(val = 0) {
     this.style.setProperty("--score", (this.score = val));
     if (this.$score) this.$score.textContent = this.score;
+    if(this.score !== 0) this.playSound()
     document.dispatchEvent(
       new CustomEvent(Game.EVENT.CHANGE_SCORE, {
         detail: {
@@ -78,21 +80,11 @@ export default class Game extends Engine.mixin("root") {
     );
   }
 
-  /**
-   * @returns {Boolean}
-   * retorna un boleano si se pudo mesclar ambos cubos o no
-   */
-  mixCubes(/**@type {Cube}*/ target, /**@type {Cube}*/ toMix) {
-    if (target.merged || target === toMix) return false;
-    const { value: mixedValue } = toMix;
-    target.addValue(toMix.value);
-    toMix.setColorValue(target.value);
-    this.scene.map[toMix.y][toMix.x] = Scene.EMPTY;
-    toMix.setY(target.y);
-    toMix.setX(target.x);
-    toMix.mixin();
-    target.merged = true;
-    this.addScore(mixedValue);
-    return true;
+  moveTo(/**@type {string} */direction){
+    if (!this.running) return;
+    const details = this.scene.moveTo(direction)
+    if(details.newValue >= 0) this.addScore(details.newValue)
+    if(details.finished) this.finish()
   }
+
 }
