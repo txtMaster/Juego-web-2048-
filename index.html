@@ -12,19 +12,17 @@
     <header>
       <section id="audio-controls">
         <input type="checkbox" name="" id="sound" class="sound" />
-        <input type="range" name="" id="audio-volumen" value="50%">
+        <input type="range" name="" id="audio-volumen" value="50%" />
       </section>
     </header>
     <main>
       <div is="game-root" id="game">
-        <data value="0" type="number" is="score"></data>
+        <div class="score">
+          <data value="0" type="number" is="score"></data>
+        <data value="0" type="number" is="max-score">0</data>
+        </div>
         <div is="message"></div>
-        <div
-          is="game-scene"
-          data-x="4"
-          data-y="4"
-          class="bg-grid"
-        ></div>
+        <div is="game-scene" data-x="4" data-y="4" class="bg-grid"></div>
         <button>NEW GAME</button>
       </div>
       <div id="test" style="color: white"></div>

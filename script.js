@@ -16,14 +16,16 @@ const soundButton = document.getElementById("sound");
 /**@type {HTMLAudioElement} */ const backgroundAudio =
   document.getElementById("background-audio");
 
-const volumenSlide = document.getElementById("audio-volumen")
-volumenSlide.oninput = function(e){
-  backgroundAudio.volume = volumenSlide.value / 100
-}
+const volumenSlide = document.getElementById("audio-volumen");
+volumenSlide.oninput = function (e) {
+  backgroundAudio.volume = volumenSlide.value / 100;
+};
 
 gestureTracker.zones.push($scene);
-console.log(document.querySelector("section#audio-controls"))
-gestureTracker.excludeZones.push(...document.querySelectorAll("section#audio-controls input"))
+console.log(document.querySelector("section#audio-controls"));
+gestureTracker.excludeZones.push(
+  ...document.querySelectorAll("section#audio-controls input")
+);
 document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
   if (!$game.running) return;
   if ($scene.firstElementChild === null) return;
@@ -57,7 +59,8 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
         if ($next === undefined) break;
         if ($next !== Scene.EMPTY) {
           if ($next.value === $cube.value) {
-            if ($game.mixCubes($next, $cube)) haveMixedCubes = hasMovedCube = true;
+            if ($game.mixCubes($next, $cube))
+              haveMixedCubes = hasMovedCube = true;
           }
           break;
         }
@@ -98,7 +101,7 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
     }
     if (hasMoves) break;
   }
-  if(haveMixedCubes) $game.playSound()
+  if (haveMixedCubes) $game.playSound();
   if (!hasMoves) {
     $game.finish();
   }
@@ -114,7 +117,6 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
     }
   );
 });
-
 
 await $game.init();
 
@@ -132,6 +134,9 @@ soundButton.onclick = function () {
   }
 };
 
-document.addEventListener(Game.EVENT.CHANGE_SCORE,e=>{
-  document.body.style.setProperty("--score",e.detail.score)
-})
+document.addEventListener(Game.EVENT.CHANGE_SCORE, (e) => {
+  document.body.style.setProperty("--score", e.detail.score);
+});
+$game.onfinish = function(){
+  this.score
+}

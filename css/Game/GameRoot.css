@@ -5,6 +5,9 @@
   align-items: center;
   [is="score"] {
   }
+  [is="max-score"]::before {
+    content: "max score: ";
+  }
   [is="message"]{
     z-index: 1;
   }
