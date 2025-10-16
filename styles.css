@@ -23,7 +23,7 @@
 }
 :root{
   --c-1: #d5c9b8;
-  --bg-1: #fefaf2;
+  --bg-1: #f6f2e9;
   --c-brown-5: #E1D6C6;
   --c-brown-4: #d5c9b8;
 }
@@ -48,7 +48,7 @@ body {
   /*animation: base-hue-road 20s infinite forwards;*/
 }
 
-[is="game-root"]{
+game-root{
   margin: 0 auto;
   width: 95%;
   gap: 4vmin;
@@ -101,7 +101,7 @@ body {
   }
 }
 
-[is="game-scene"] {
+game-scene {
   --bg-color: var(--c-brown-4);
   --bg-grid-color: var(--c-brown-5);
   --bg-grid-space-color: var(--bg-color);
@@ -113,8 +113,9 @@ body {
   background-repeat: repeat;
   border-radius: 0.5em;
   outline: var(--bg-color) solid .3em;
+  outline-offset: -3px;
 }
-[is="game-cube"] {
+game-cube {
   border-radius: 0.5em;
 }
 
@@ -167,29 +168,35 @@ input[type="range"] {
   z-index: 2;
 }
 
+input[type="range"]::-webkit-slider-thumb {
+  background: #ddd3d3;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #9d9090;
+}
 
 
 
 /*landscape*/
 @media screen and (aspect-ratio > 2 / 3) {
-  [is="game-root"]{
+  game-root{
     button{
       width: 50vmin;
       font-size: 1rem; 
     }
   }
-  [is="game-scene"]{
+  game-scene{
     width: 50vmin;
   }
 }
 @media screen and (aspect-ratio > 3 / 2) {
-  [is="game-root"]{
+  game-root{
     button{
       width: 40vmin;
       font-size: 1rem; 
     }
   }
-  [is="game-scene"]{
+  game-scene{
     width: 40vmin;
   }
 }

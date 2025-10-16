@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href="./styles.css" rel="stylesheet" />
     <script src="./script.js" defer type="module"></script>
-    <title>Document</title>
+    <title>Game</title>
   </head>
   <body>
     <header>
@@ -16,22 +16,16 @@
       </section>
     </header>
     <main>
-      <div is="game-root" id="game">
+      <game-root id="game">
         <div class="score">
           <data value="0" type="number" is="score"></data>
         <data value="0" type="number" is="max-score">0</data>
         </div>
         <div is="message"></div>
-        <div is="game-scene" data-x="4" data-y="4" class="bg-grid"></div>
+        <game-scene data-x="4" data-y="4" class="bg-grid" id="scene"></game-scene>
         <button>NEW GAME</button>
-      </div>
+      </game-root>
       <div id="test" style="color: white"></div>
-      <audio
-        id="background-audio"
-        src="/media/sound/Touch-and-Go.mp3"
-        preload="none"
-      ></audio>
     </main>
-    <footer></footer>
   </body>
 </html>

@@ -1,4 +1,4 @@
-[is="game-root"] {
+game-root {
   position: relative;
   display: flex;
   flex-direction: column;
