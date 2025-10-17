@@ -1,23 +1,36 @@
-<h1 align="center">2048</h1>
+<h1 align="center">🎮 2048 🎮</h1>
 <div align="center" >
-    <img src="preview-1.png" width="200"/>
+    <img src="preview-1.gif" width="330" height="460"/>
 </div>
 
 ---
 
 <div align="center">
 
-    Juego donde se tiene que combinar las piezas del mismo valor.
+    2048 es un popular juego en el que debes combinar fichas con números iguales para sumar puntos y alcanzar la ficha con el número 2048. 
+
+    🛠️ Este proyecto fue hecho con JS, CSS, HTML
 
 </div>
 
+<h3 align="center">
+
+**[🌐 DALE UN INTENTO AQUÍ 🌐](https://juego-web-2048.onrender.com/)**
+
+</h3>
+
 ## Caracteristicas
-
-- Creado con JS, CSS, HTML.
-- Funcional en escritorio y móvil.
-- Audio de retroalimentación al hacer puntos.
-- Temática pastel minimalista.
-
+- ⭐ Funcional en escritorio con las flechas o en móvil con gestos de despazamiento.
+- ⭐ Audio de retroalimentación al hacer puntos.
+- ⭐ Contador de puntos en tiempo real
+- ⭐ Temática minimalista 
+- ⭐ Contador de puntos en tiempo real
+- ⭐ Animaciones suaves con CSS
+- ⭐ Reinicio del juego sin recargar la página
 ---
 
-**[-> JUEGALO AQUÍ <-](https://juego-web-2048.onrender.com/)**
+<div align="center">
+
+
+
+</div>
