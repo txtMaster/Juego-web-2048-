@@ -1,6 +1,6 @@
 <h1 align="center">🎮 2048 🎮</h1>
 <div align="center" >
-    <img src="preview-1.gif" width="330" height="460"/>
+    <img src="preview-1.gif" width="400"/>
 </div>
 
 ---
