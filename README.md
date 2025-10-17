@@ -2,16 +2,12 @@
 <div align="center" >
     <img src="preview-1.gif" width="400"/>
 </div>
+<br/>
+<h2 align="center">
+🛠️ Este proyecto fue hecho con JS, CSS, HTML. 
+</h2>
 
----
-
-<div align="center">
-
-    2048 es un popular juego en el que debes combinar fichas con números iguales para sumar puntos y alcanzar la ficha con el número 2048. 
-
-    🛠️ Este proyecto fue hecho con JS, CSS, HTML
-
-</div>
+<h3 align="center"> Se trata del juego de 2048, un popular juego en el que debes combinar fichas con números iguales para sumar puntos y alcanzar la ficha con el número 2048. </h3>
 
 <h3 align="center">
 
