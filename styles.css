@@ -181,12 +181,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 @media screen and (aspect-ratio > 2 / 3) {
   game-root{
     button{
-      width: 50vmin;
+      width: 40vmin;
       font-size: 1rem; 
     }
   }
   game-scene{
-    width: 50vmin;
+    width: 40vmin;
   }
 }
 @media screen and (aspect-ratio > 3 / 2) {
