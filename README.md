@@ -18,11 +18,10 @@
 ## Caracteristicas
 - ⭐ Funcional en escritorio con las flechas o en móvil con gestos de despazamiento.
 - ⭐ Audio de retroalimentación al hacer puntos.
-- ⭐ Contador de puntos en tiempo real
-- ⭐ Temática minimalista 
-- ⭐ Contador de puntos en tiempo real
-- ⭐ Animaciones suaves con CSS
-- ⭐ Reinicio del juego sin recargar la página
+- ⭐ Contador de puntos en tiempo real.
+- ⭐ Temática minimalista.
+- ⭐ Animaciones suaves con CSS.
+- ⭐ Cantidad de celdas personalizable.
 ---
 
 <div align="center">

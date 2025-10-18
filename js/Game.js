@@ -51,6 +51,7 @@ export default class Game extends Engine.mixin("root") {
 		this.scene.addRandomCube();
 		this.message.textContent = "RUNNING";
 		this.$score.textContent = this.score;
+		this.dataset.state="init"
 	}
 	finish() {
 		this.message.textContent = "GAME OVER";
@@ -58,6 +59,7 @@ export default class Game extends Engine.mixin("root") {
 		if (this.$maxScore && this.score > this.maxScore)
 			this.maxScore = this.score;
 		this.$maxScore.textContent = this.maxScore;
+		this.dataset.state="finished"
 		this.onfinish();
 	}
 	onfinish = function () {};
@@ -94,5 +96,6 @@ export default class Game extends Engine.mixin("root") {
 		const details = this.scene.moveTo(direction);
 		if (details.newValue >= 0) this.addScore(details.newValue);
 		if (details.finished) this.finish();
+		this.dataset.state="playing"
 	}
 }

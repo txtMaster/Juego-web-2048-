@@ -8,8 +8,7 @@ Cube.define();
 Game.define();
 Scene.define();
 /** @type {Game} */ const $game = document.getElementById("game");
-/** @type {Scene} */const $scene = $game.scene;
-
+/** @type {Scene} */ const $scene = $game.scene;
 
 //definir el funcionamiento del control de sonido
 
@@ -34,20 +33,31 @@ document.addEventListener(gestureTracker.EVENT.ORTOGONAL, (e) => {
 	$game.moveTo(sceneDirection);
 });
 
-$game.querySelector("button").onclick = () => {
-	$game.init();
-};
-
 document.addEventListener(Game.EVENT.CHANGE_SCORE, (e) => {
 	document.body.style.setProperty("--score", e.detail.score);
 });
 
-document.addEventListener(
-	"DOMContentLoaded",
-	async (e) => {
-		await $game.init();
-	},
-	{
-		once: true,
-	}
-);
+document.addEventListener("DOMContentLoaded", async (e) => await $game.init(), {
+	once: true,
+});
+
+const colInput = document.getElementById("col-input");
+const rowInput = document.getElementById("row-input");
+document.getElementById("add-col").onclick = () =>
+	colInput.value = Math.max(Number(colInput.value) + 1,1);
+document.getElementById("add-row").onclick = () =>
+	rowInput.value = Math.max(Number(rowInput.value) + 1,1);
+
+document.getElementById("res-col").onclick = () => colInput.value = Math.max(colInput.value-1,1);
+document.getElementById("res-row").onclick = () => rowInput.value = Math.max(rowInput.value-1,1);
+
+
+
+gestureTracker.excludeZones.push(colInput);
+
+$game.querySelector("button").onclick = () => {
+	$scene.childNodes.forEach((c) => c.remove());
+	$scene.setAttribute("data-x", colInput.value);
+	$scene.setAttribute("data-y", rowInput.value);
+	$game.init();
+};

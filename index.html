@@ -1,31 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="./styles.css" rel="stylesheet" />
-    <script src="./script.js" defer type="module"></script>
-    <title>Game</title>
-  </head>
-  <body>
-    <header>
-      <section id="audio-controls">
-        <input type="checkbox" name="" id="sound" class="sound" />
-        <input type="range" name="" id="audio-volumen" value="50%" />
-      </section>
-    </header>
-    <main>
-      <game-root id="game">
-        <div class="score">
-          <data value="0" type="number" is="score"></data>
-        <data value="0" type="number" is="max-score">0</data>
-        </div>
-        <div is="message"></div>
-        <game-scene data-x="4" data-y="4" class="bg-grid" id="scene"></game-scene>
-        <button>NEW GAME</button>
-      </game-root>
-      <div id="test" style="color: white"></div>
-    </main>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link href="./styles.css" rel="stylesheet" />
+		<script src="./script.js" defer type="module"></script>
+		<title>Game</title>
+	</head>
+	<body>
+		<header>
+			<section id="audio-controls">
+				<input type="checkbox" name="" id="sound" class="sound" />
+				<input type="range" name="" id="audio-volumen" value="100" />
+			</section>
+		</header>
+		<main>
+			<section class="main-section">
+				<game-root id="game">
+					<section class="head">
+						<div class="score">
+							<data value="0" type="number" is="score"></data>
+							<data value="0" type="number" is="max-score">0</data>
+						</div>
+						<div is="message"></div>
+					</section>
+					<section class="main">
+						<game-scene
+							data-x="3"
+							data-y="3"
+							class="bg-grid"
+							id="scene"
+						></game-scene>
+					</section>
+					<section class="footer">
+						<button>NEW GAME</button>
+					</section>
+				</game-root>
+				<section id="coor-inputs">
+					<div class="control">
+						<div class="input-buttons">
+							<button id="add-col">+</button>
+							<button id="res-col">-</button>
+						</div>
+						<input type="number" id="col-input" value="3" min="1" />
+					</div>
+					<div class="x">x</div>
+					<div class="control">
+						<input type="number" id="row-input" value="3" min="1" />
+						<div class="input-buttons">
+							<button id="add-row">+</button>
+							<button id="res-row">-</button>
+						</div>
+					</div>
+				</section>
+			</section>
+		</main>
+		<footer></footer>
+	</body>
 </html>

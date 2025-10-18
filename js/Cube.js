@@ -17,20 +17,21 @@ export default class Cube extends Engine.mixin("cube") {
       this.textContent = this.value;
       this.setColorValue(this.value);
     }
-    /** @param { number } val*/
+    /** @param { number } x*/
     setX(x) {
       this.x = x;
       this.style.setProperty("--x", this.x);
     }
-    /** @param { number } val*/
+    /** @param { number } y*/
     setY(y) {
       this.y = y;
       this.style.setProperty("--y", this.y);
     }
-    //esta mescaldo
+    //si ya se ha mesclado durante un ciclo
     merged = false;
-    //ha sido mescaldo
-    used = false
+    
+    //ha sido mesclado con otro cubo
+    used = false;
     mixin() {
       this.used = true
       this.setAttribute("mixin", "");
