@@ -305,7 +305,7 @@
 	/*landscape*/
 	@media screen and (aspect-ratio > 4 / 7) {
 		html {
-			font-size: 3vmin;
+			font-size: 4.5vmin;
 		}
 		.main-section {
 			width: fit-content;
@@ -325,7 +325,10 @@
 			}
 		}
 	}
-	@media screen and (aspect-ratio > 3 / 2) {
+	@media screen and (aspect-ratio > 2 / 3) {
+		html {
+			font-size: 3vmin;
+		}
 		game-root {
 			section.main {
 				aspect-ratio: 1/1;
